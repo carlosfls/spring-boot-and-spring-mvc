@@ -14,10 +14,10 @@
         <th>Actions</th>
     </tr>
     <tr th:each="product : ${products}">
-        <td th:value="product.name"></td>
-        <td th:value="product.price"></td>
+        <td th:text="${product.name()}"></td>
+        <td th:text="${product.price()}"></td>
         <td>
-            <form th:action="@{/buy}" th:object="${product}" method="post">
+            <form th:action="@{/buy}" method="post">
                 <button type="submit">Buy</button>
             </form>
         </td>

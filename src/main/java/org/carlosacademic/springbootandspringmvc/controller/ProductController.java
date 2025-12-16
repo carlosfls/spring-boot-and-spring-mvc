@@ -5,11 +5,14 @@ import org.carlosacademic.springbootandspringmvc.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+/**
+ * If you see in the logs, the token is the same for the user session
+ * And the transaction id is different for every request because of the scopes
+ */
 @Controller
 public class ProductController {
 
@@ -29,7 +32,8 @@ public class ProductController {
     }
 
     @PostMapping("/buy")
-    public void buyProduct(@ModelAttribute Product product){
-        productService.buyProduct(product);
+    public String buyProduct(Model model){
+        productService.buyProduct();
+        return getProducts(model);
     }
 }

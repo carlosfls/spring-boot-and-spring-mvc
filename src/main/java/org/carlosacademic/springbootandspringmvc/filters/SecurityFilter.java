@@ -1,4 +1,4 @@
-package org.carlosacademic.springbootandspringmvc.interceptors;
+package org.carlosacademic.springbootandspringmvc.filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,9 +25,12 @@ public class SecurityFilter extends OncePerRequestFilter {
             System.out.println("Authenticating request...");
             if (tokenProcessor.getToken() == null){
                 response.setStatus(401);
+                throw new ServletException("Unauthorized");
             }
+            System.out.println("Token: " + tokenProcessor.getToken());
             System.out.println("Request authenticated successfully");
             filterChain.doFilter(request, response);
         }
+        filterChain.doFilter(request, response);
     }
 }
