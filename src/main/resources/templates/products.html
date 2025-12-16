@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<h1>Products</h1>
+<div th:if="${#lists.isEmpty(products)}">No products found</div>
+<table th:unless="${#lists.isEmpty(products)}">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:value="product.name"></td>
+        <td th:value="product.price"></td>
+        <td>
+            <form th:action="@{/buy}" th:object="${product}" method="post">
+                <button type="submit">Buy</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
