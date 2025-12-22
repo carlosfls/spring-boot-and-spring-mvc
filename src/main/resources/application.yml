@@ -1,3 +1,11 @@
 spring:
   application:
       name: spring-boot-and-spring-mvc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring-start-here-db
+    username: postgres
+    password: postgres
+
+  sql:
+    init:
+      mode: always
