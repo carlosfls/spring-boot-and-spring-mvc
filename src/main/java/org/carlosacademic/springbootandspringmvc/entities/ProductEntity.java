@@ -5,6 +5,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 
+/**
+ * Table and Id are annotations for spring data not for hibernate.
+ */
 @Table("products")
 public class ProductEntity {
 
