@@ -1,29 +1,20 @@
 package org.carlosacademic.springbootandspringmvc.repositories;
 
 import org.carlosacademic.springbootandspringmvc.entities.ProductEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-@Repository
-public class ProductRepository {
+/**
+ * This simply uses the spring data jdbc for demonstrating the usage of the contracts
+ *  without using hibernate, the contracts are with spring data, not with hibernate
+ *  Spring Data JDBC is a better option for using instead of spring JDBCTemplate.
+ */
+public interface ProductRepository extends CrudRepository<ProductEntity, Integer> {
 
-    private final JdbcTemplate jdbcTemplate;
-
-    public ProductRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public void save(ProductEntity product) {
-        String sql = "INSERT INTO products (name, price) VALUES (?, ?)";
-        jdbcTemplate.update(sql, product.getName(), product.getPrice());
-    }
-
-    public List<ProductEntity> findAll() {
-        String sql = "SELECT * FROM products";
-        RowMapper<ProductEntity> productRowMapper = (r , i) -> new ProductEntity(r.getInt("id"), r.getString("name"), r.getBigDecimal("price"));
-        return jdbcTemplate.query(sql, productRowMapper);
-    }
+    @Modifying
+    @Query("update products set price = :price where id = :id")
+    void updatePrice(int id, BigDecimal price);
 }

@@ -1,9 +1,14 @@
 package org.carlosacademic.springbootandspringmvc.entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.math.BigDecimal;
 
+@Table("products")
 public class ProductEntity {
 
+    @Id
     private int id;
     private String name;
     private BigDecimal price;
