@@ -14,6 +14,9 @@ import java.math.BigDecimal;
  */
 public interface ProductRepository extends CrudRepository<ProductEntity, Integer> {
 
+    /**
+     * Modifying annotation is required for any query that modifies data.
+     */
     @Modifying
     @Query("update products set price = :price where id = :id")
     void updatePrice(int id, BigDecimal price);
